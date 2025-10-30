@@ -2,7 +2,6 @@
 import pygame
 import random
 from math import sqrt
-
 WIDTH = 1400 #ur moms box
 HEIGHT = 800
 BOID_COUNT = 100
@@ -49,7 +48,7 @@ class Boid:
             return pygame.Vector2()
             
         desired.scale_to_length(MAX_SPEED)#go to new desired position
-        steer = desired - self.vel  #!!!
+        steer = desired - self.vel  #gives the vector from vel to desired point
         if steer.length() > MAX_FORCE:
             steer.scale_to_length(MAX_FORCE)
         return steer
@@ -74,12 +73,13 @@ class Boid:
             sep /= count                    #/`````\        \````
             ali /= count                    #\_____/  \   / / __
             coh /= count                    #/     \   \_/  \___\
-
+        
             if sep.length() > 0:                    #if no neighbours, then cause divison by zero
-                sep.scale_to_length(MAX_SPEED)      #move at max_speed
+                sep.scale_to_length(MAX_SPEED)      #move at max_speed            
             steer_sep = sep - self.vel              #finds the required  acceleretion
             if steer_sep.length() > MAX_FORCE:
                 steer_sep.scale_to_length(MAX_FORCE)#capping required force to max 
+            
             if ali.length() > 0:                    #same thing for alignment
                 ali.scale_to_length(MAX_SPEED)
             steer_ali = ali - self.vel
@@ -94,7 +94,7 @@ class Boid:
 
     def update(self):                           # running for each frame updating variables
         self.vel += self.acc                    #update velocity with the acceleration
-        if self.vel.length() > MAX_SPEED:       #
+        if self.vel.length() > MAX_SPEED:       
             self.vel.scale_to_length(MAX_SPEED)
         self.pos += self.vel                    #pos updated bsed on velocity of boid
         self.acc *= 0                           #changes acc to 0 for next calculation
