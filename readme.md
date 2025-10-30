@@ -26,9 +26,10 @@ These algorithm help in mimicing the group or flock movement of a group or flock
   : Tweaking things in this algorithm gets to -
   - **Leader-Follower method:** 
     : One boid is leader which follow the goal and other boid follow leader and seperation, alignment, and cohesion.
-    - **goal-seeking** rule is introduced to make it happen 
+    - **goal-seeking-** rule is introduced to make it happen 
     - **/all_goal_seek.py** is applying the goal-seeking role to all the boids.
-  - **Predator-prey model** == COMING SOON ==
+  - **Predator-prey model** 
+    : the name is your hint
+    - **Prey boid-** all standard rules with a new high-priority **Evasion rule** which means steer away from predator boid
+    - **Predator boid-** Change cohesion rule to steer towards nearest prey boids  
   - **Vicsek Model** == COMING SOON ==
-# Ant Colony Optimization algorithm
-== COMING SOON ==
