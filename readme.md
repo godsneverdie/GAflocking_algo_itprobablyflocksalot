@@ -24,7 +24,7 @@ These algorithm help in mimicing the group or flock movement of a group or flock
   3. Combine and apply all the forces to acceleration of the boid
 - **Other "things" based on this concept**
   : Tweaking things in this algorithm gets to -
-  - **Leader-Follower method:** 
+  - **Leader-Follower method:** /leader-follower.py
     : One boid is leader which follow the goal and other boid follow leader and seperation, alignment, and cohesion.
     - **goal-seeking-** rule is introduced to make it happen 
     - **/all_goal_seek.py** is applying the goal-seeking role to all the boids.
@@ -32,4 +32,4 @@ These algorithm help in mimicing the group or flock movement of a group or flock
     : the name is your hint
     - **Prey boid-** all standard rules with a new high-priority **Evasion rule** which means steer away from predator boid
     - **Predator boid-** Change cohesion rule to steer towards nearest prey boids  
-  - **Vicsek Model** == COMING SOON ==
+  - **Vicsek Model** used to understand events like phase transition (Booo Physics). In this model all boids move at same constant speed, moving in each others average direction and add noise 
