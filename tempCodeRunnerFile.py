@@ -3,10 +3,10 @@ import random
 from math import sqrt
 wb=1400
 hb=800
-boid_count=50
+boid_count=100
 perception = 50
 max_force=0.3
-max_speed= 6
+max_speed= 50 
 
 class boid():
     def __init__(self,is_leader):
@@ -18,7 +18,7 @@ class boid():
         if is_leader:
             self.color=(225,0,0)
         else:
-            self.color=(255,255,255)
+            self.color=(0,0,0)
     def edge(self):
         if self.pos.x>wb:
             self.pos.x = wb    
@@ -61,22 +61,23 @@ class boid():
             sep/=cnt
             ali/=cnt
             coh/=cnt
-        
-            if sep.length()>0:
-                sep.scale_to_length(max_speed)
-            steer_sep=sep-self.vel
-            if steer_sep.length()>max_force:
-                steer_sep.scale_to_length(max_force)
-            
-            if ali.length()>0:
-                ali.scale_to_length(max_speed)
-            steer_ali=ali-self.vel
-            if steer_ali.length()>max_force:
-                steer_ali.scale_to_length(max_force)
             steer_coh=self.seek(coh)
-            self.apply_force(steer_sep*2.0)
-            self.apply_force(steer_ali*1.8)
-            self.apply_force(steer_coh*1.0)
+
+        if sep.length()>0:
+            sep.scale_to_length(max_speed)
+        steer_sep=sep-self.vel
+        if steer_sep.length()>max_force:
+            steer_sep.scale_to_length(max_force)
+        
+        if ali.length()>0:
+            ali.scale_to_length(max_speed)
+        steer_ali=ali-self.vel
+        if steer_ali.length()>max_force:
+            steer_ali.scale_to_length(max_force)
+
+        self.apply_force(steer_sep*1.0)
+        self.apply_force(steer_ali*1.0)
+        self.apply_force(steer_coh*1.0)
     def update(self):
         self.vel+=self.acc  #this acc is made of all the forces look at apply_force()
         if self.vel.length()>max_speed:
@@ -84,8 +85,7 @@ class boid():
         self.pos+=self.vel
         self.acc*=0
     def draw(self,screen):
-        size = 5 if self.is_leader else 3
-        pygame.draw.circle(screen, self.color, (int(self.pos.x), int(self.pos.y)), size)
+        pygame.draw.circle(screen, (255, 255, 255), (int(self.pos.x), int(self.pos.y)), 3)
 pygame.init()
 screen=pygame.display.set_mode((wb,hb))
 pygame.display.set_caption("CHASE")
@@ -106,7 +106,7 @@ while running:
     lead.draw(screen)
     lead_pos=lead.pos
     for b in follower:
-        b.flock(follower+[lead])
+        b.flock(follower)
         lead_force=b.seek(lead_pos)
         b.apply_force(lead_force*1.0)
         b.edge()
